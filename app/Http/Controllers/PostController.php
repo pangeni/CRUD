@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Models\post;
 use App\Http\Requests\StorepostRequest;
 use App\Http\Requests\UpdatepostRequest;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -17,9 +18,11 @@ class PostController extends Controller
     {
         $posts = post::all(); 
 
-        return view('posts.index', ['posts' => $posts]);
+        return view('blog.index', ['posts' => $posts]);
     }
-
+    public function home(){
+        return view('welcome');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('blog.create');
     }
 
     /**
@@ -36,19 +39,26 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorepostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store ()
+    public function store (Request $request)
     {
-      
-        request()->validate([
-            'title' => 'required', 
-            'body' => 'required', 
+        $request->validate([
+            'title' => 'required | string | max:254', 
+            'body' => 'required | string|max:254', 
+            'image'=>'required|mimes:jpeg,jpg,png,gif|max:2400',
         ]);
+        
+
+        $random = Str::random(20);
+        $image=$request->image->getClientOriginalName();
+        $request->image->move(public_path('images'), $image);
         Post::create([
-            'title' => request('title'),
-            'body' => request ('body'),
+            'title' => $request->title,
+            'body' => $request->body,
+            'image'=>$image,
+            'slug'=>$random,
         ]);
 
-        return redirect ('/');
+        return redirect ('/admin');
     }
 
     /**
@@ -68,9 +78,10 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(post $post)
+    public function edit($post)
     {
-        return view ('posts.edit', ['post' => $post]); 
+        $post=post::where('slug',$post)->first();
+        return view ('blog.edit', ['post' => $post]); 
     }
 
     /**
@@ -80,18 +91,21 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Post $post)
+    public function update(Request $request,$post)
     {
-        request()->validate([
-            'title' => 'required', 
-            'body' => 'required', 
+        $request->validate([
+            'title' => 'required | string | max:254', 
+            'body' => 'required | string|max:254', 
+            'image'=>'required|mimes:jpeg,jpg,png,gif|max:2400',
         ]);
-
-        $post->update([
-            'title' => request('title'),
-            'body' => request('body'),
-        ]);
-        return redirect('/');
+        $image=$request->image->getClientOriginalName();
+        $request->image->move(public_path('images'), $image);
+        $data=post::where('slug',$post)->first();
+        $data->title=$request->title;
+        $data->image=$image;
+        $data->body=$request->body;
+        $data->save();
+        return redirect('/admin');
     }
 
     /**
@@ -100,9 +114,10 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(post $post)
+    public function destroy($post)
     {
+        $post=post::where('slug',$post)->first();
        $post-> delete(); 
-       return redirect('/');
+       return redirect('/admin');
     }
 }
