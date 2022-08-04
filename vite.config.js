@@ -11,7 +11,7 @@ export default defineConfig({
             refresh: true,
             resolve: {
                 alias: {
-                    '~boostrap' : path.resolve (__dirname, 'node_modules/boostrap'); 
+                    '~boostrap' : path.resolve (__dirname, 'node_modules/boostrap'), 
                 }
             }
         }),
