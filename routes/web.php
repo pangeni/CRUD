@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+Route::get('/admin',function () {
+    return view('admin.dashboard'); 
+}); 
 Route::get('/', [PostController::class, 'home']); 
 Route::get('/admin', [PostController::class, 'index']); 
 Route::get('/posts/create', [PostController::class, 'create']); 
