@@ -21,7 +21,8 @@ class PostController extends Controller
         return view('blog.index', ['posts' => $posts]);
     }
     public function home(){
-        return view('welcome');
+        $posts = post::all();
+        return view ('admin.homepage' ,['posts' => $posts]);
     }
     /**
      * Show the form for creating a new resource.
@@ -42,21 +43,29 @@ class PostController extends Controller
     public function store (Request $request)
     {
         $request->validate([
-            'title' => 'required | string | max:254', 
-            'body' => 'required | string|max:254', 
-            'image'=>'required|mimes:jpeg,jpg,png,gif|max:2400',
+            'title' => 'required | string | max:254 | unique:posts', 
+            'content' => 'required | string|max:254', 
+            'sub_title' => 'string',
+            'meta_title' => 'string',
+            'image'=>'required|mimes:jpeg,jpg,png,gif',
         ]);
         
 
-        $random = Str::random(20);
-        $image=$request->image->getClientOriginalName();
-        $request->image->move(public_path('images'), $image);
-        Post::create([
-            'title' => $request->title,
-            'body' => $request->body,
-            'image'=>$image,
-            'slug'=>$random,
-        ]);
+        $random = Str::slug($request->title, '-');
+        $data->title=$request->title;
+        $data->content = $request->content; 
+        if(isset($request->image)){
+            $filename = $request->image; 
+            $image = time().'_' . $random . '.' . $filename->extension(); 
+            $filename->move(public_path('images'), $image); 
+            $data->image = $image; 
+
+        }
+        $data->slug = $random; 
+        $data->sub_title = $request->subtitle; 
+        $data->meta_title = $request->meta_title; 
+        $data->meta_descripttion = $request->meta_description; 
+        $data->save(); 
 
         return redirect ('/admin');
     }
@@ -94,18 +103,33 @@ class PostController extends Controller
     public function update(Request $request,$post)
     {
         $request->validate([
-            'title' => 'required | string | max:254', 
-            'body' => 'required | string|max:254', 
-            'image'=>'required|mimes:jpeg,jpg,png,gif|max:2400',
+            'title' => 'required | string | max:254 | unique:posts', 
+            'sub_title'=>'string',
+            'meta_title'=>'string',
+            'meta_description'=>'string',
+            'content' => 'required | string|max:254', 
+            'image'=>'mimes:jpeg,jpg,png,gif|max:2400',
+            
         ]);
-        $image=$request->image->getClientOriginalName();
-        $request->image->move(public_path('images'), $image);
-        $data=post::where('slug',$post)->first();
+        
+        
+        $random = Str::slug($request->title,'-');
+       
+        $data=Post::where('slug',$post)->first();
         $data->title=$request->title;
-        $data->image=$image;
-        $data->body=$request->body;
+        $data->content = $request->content;
+        if(isset($request->image)){
+            $filename=$request->image;
+            $image=time().'.'.$random.'.'.$filename->extension();
+            $filename->move(public_path('images'), $image);
+            $data->image=$image;
+        }
+        $data->slug=$random;
+        $data->sub_title=$request->sub_title;
+        $data->meta_title=$request->meta_title;
+        $data->meta_description=$request->meta_description;
         $data->save();
-        return redirect('/admin');
+        return redirect ('/admin');
     }
 
     /**
