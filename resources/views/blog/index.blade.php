@@ -15,6 +15,7 @@
       <th scope="col">id</th>
       <th scope="col">title</th>
       <th scope="col">content</th>
+      <th scope="col">meta Title </th>
       <th scope="col">image</th>
       <th scope="col">action</th>
     </tr>
@@ -25,7 +26,9 @@
       <th scope="row"> {{ $post->id }}</th>
       <td> {{ $post->title }}</td>
       <td> {{ $post->content }}</td>
-      <td>@if($post->image==null)
+      <td> {{ $post->meta_title }}</td>
+      <td>
+      @if($post->image==null)
       <p>Image not uplaoded</p>
        @else
         <img src="{{ asset('/images/' . $post->image) }}" alt="image" style="height:50px;width:50px;"/>

@@ -47,11 +47,14 @@ class PostController extends Controller
             'content' => 'required | string|max:254', 
             'sub_title' => 'string',
             'meta_title' => 'string',
+            'meta_description' => 'string',
             'image'=>'required|mimes:jpeg,jpg,png,gif',
         ]);
         
 
         $random = Str::slug($request->title, '-');
+
+        $data=new Post();
         $data->title=$request->title;
         $data->content = $request->content; 
         if(isset($request->image)){
@@ -64,7 +67,7 @@ class PostController extends Controller
         $data->slug = $random; 
         $data->sub_title = $request->subtitle; 
         $data->meta_title = $request->meta_title; 
-        $data->meta_descripttion = $request->meta_description; 
+        $data->meta_description = $request->meta_description; 
         $data->save(); 
 
         return redirect ('/admin');

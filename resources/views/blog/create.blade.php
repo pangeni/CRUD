@@ -20,23 +20,14 @@
  
 <label for="exampleFormControlInput1" class="form-label">sub-title</label>
 <textarea class="form-control" placeholder="Leave a sub-title here" id="floatingTextarea" name="sub_title"></textarea>
-@error('sub_title')
-  <span style="color:red">{{$message.'*'}}</span>
-  @enderror
 </div>
 <div class="col-md-6 mb-3">
 <label for="exampleFormControlInput1" class="form-label">meta-title</label>
 <textarea class="form-control" placeholder="Leave a meta-title  here" id="floatingTextarea" name="meta_title"></textarea>
-@error('meta_title')
-  <span style="color:red">{{$message.'*'}}</span>
-  @enderror
 </div>
 <div class="col-md-6 mb-3">
 <label for="exampleFormControlInput1" class="form-label">meta-description</label>
 <textarea class="form-control" placeholder="Leave a meta-description  here" id="floatingTextarea" name="meta_description"></textarea>
-@error('meta_description')
-  <span style="color:red">{{$message.'*'}}</span>
-  @enderror
 </div>
 <div class="col-md-6 mb-3">
 <label for="exampleFormControlInput1" class="form-label">Content</label>
