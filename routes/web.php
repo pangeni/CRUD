@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController; 
+use App\Http\Controllers\BannerController; 
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::middleware(['auth'])->group(function () {
 Route::get('/', [PostController::class, 'home']); 
 Route::get('/admin', [PostController::class, 'index']); 
@@ -25,5 +25,12 @@ Route::put('/posts/{post}', [PostController::class, 'update']);
 Route::delete('/posts/{post}', [PostController::class, 'destroy']); 
 });
 Auth::routes();
+
+Route::get('/banner', [BannerController::class, 'index']); 
+Route::get('/banner/create', [BannerController::class, 'create']); 
+Route::post('/banner', [BannerController::class, 'store']); 
+Route::get('/banner/{id}/edit', [BannerController::class, 'edit']); 
+Route::put('/banner/{id}', [BannerController::class, 'update']); 
+Route::delete('/banner/{id}', [BannerController::class, 'destroy']);
 
 

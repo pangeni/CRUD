@@ -225,9 +225,22 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="/banner" class="nav-link">
+            <i class="fa fa-flag nav-icon"></i>
+              <p>
+               Create Banner 
+               <?php
+               use App\models\BannerPage;
+               $data=Post::count(); 
+               ?>
+                <span class="badge badge-info right">{{$data}}</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <form action="{{route('logout')}}" method="post" class="nav-link">
              @csrf
-             <i class="fa fa-arrow-right nav-icon mt-1"></i>
+             <i class="fa fa-arrow-right nav-icon mt-2"></i>
               <button type="submit" class="btn text-white">
                 Logout
             </button>
@@ -247,7 +260,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">Hotel Waling Fullbari</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('homes', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->unique();
+            $table->string('sub_title')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -23,9 +26,10 @@ return new class extends Migration
      * Reverse the migrations.
      *
      * @return void
+     * 
      */
     public function down()
     {
-        Schema::dropIfExists('homes');
+        Schema::dropIfExists('banners');
     }
 };
