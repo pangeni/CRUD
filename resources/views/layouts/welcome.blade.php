@@ -230,8 +230,21 @@
               <p>
                Create Banner 
                <?php
-               use App\models\BannerPage;
-               $data=Post::count(); 
+               use App\models\Banner;
+               $data=Banner::count(); 
+               ?>
+                <span class="badge badge-info right">{{$data}}</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/Gallery" class="nav-link">
+            <i class="fa fa-flag nav-icon"></i>
+              <p>
+               Create Banner 
+               <?php
+               use App\models\Gallery;
+               $data=Gallery::count(); 
                ?>
                 <span class="badge badge-info right">{{$data}}</span>
               </p>

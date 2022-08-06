@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PostController; 
 use App\Http\Controllers\BannerController; 
+use App\Http\Controllers\BodyContentController;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,4 +35,14 @@ Route::get('/banner/{id}/edit', [BannerController::class, 'edit']);
 Route::put('/banner/{id}', [BannerController::class, 'update']); 
 Route::delete('/banner/{id}', [BannerController::class, 'destroy']);
 
+Route::get('/bodycontent', [bodycontentController::class, 'index']); 
+Route::get('/bodycontent/create', [bodycontentController::class, 'create']); 
+Route::post('/bodycontent', [bodycontentController::class, 'store']); 
+Route::get('/bodycontent/{id}/edit', [bodycontentController::class, 'edit']); 
+Route::put('/bodycontent/{id}', [bodycontentController::class, 'update']); 
+Route::delete('/bodycontent/{id}', [bodycontentController::class, 'destroy']);
+
+Route::get('/Gallery', [GalleryController::class, 'index']); 
+Route::get('/Gallery/create', [GalleryController::class, 'create']); 
+Route::post('/Gallery', [GalleryController::class, 'store']);
 
