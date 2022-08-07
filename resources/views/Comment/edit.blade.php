@@ -4,23 +4,24 @@
 <section class="content">
       <div class="container-fluid">
   <div class="inertform py-5">
-  <form method="POST" class="border p-4" action="/banner" enctype='multipart/form-data'>
-    <h1>Insert Form</h1>
+  <form method="POST" class="border p-4" action="/gallery/{{$gallery->id}}" enctype='multipart/form-data'>
+    <h1>Edit Data</h1>
     <hr/>
 @csrf 
+@method('PUT')
 <div class="row">
   <div class="col-md-6 mb-3">
   <label for="exampleFormControlInput1" class="form-label">Title</label>
-  <textarea class="form-control" placeholder="Leave a title here" id="floatingTextarea" name="title"></textarea>
+  <textarea class="form-control" placeholder="Leave a title here" id="floatingTextarea" name="title">{{$gallery->title}}</textarea>
   @error('title')
   <span style="color:red">{{$message.'*'}}</span>
   @enderror
   </div>
  
 <div class="col-md-6 mb-3">
-<label for="exampleFormControlInput1" class="form-label">Sub Title</label>
-  <textarea class="form-control" placeholder="Leave a Sub_title here" id="floatingTextarea" name="sub_title"></textarea>
-  @error('sub_title')
+<label for="exampleFormControlInput1" class="form-label">sub_title</label>
+  <textarea class="form-control" placeholder="Leave a contect here" id="floatingTextarea" name="Sub_title">{{$gallery->description}}</textarea>
+  @error('Sub_title')
   <span style="color:red">{{$message.'*'}}</span>
   @enderror
 </div>
@@ -32,7 +33,7 @@
   @enderror
 </div>
 </div>
-  <button type="submit" class="btn btn-secondary w-100">Create</button>
+  <button type="submit" class="btn btn-secondary w-100">Update</button>
 </form>
   </div>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class BannerController extends Controller
 {
@@ -39,8 +40,19 @@ class BannerController extends Controller
         $data=new Banner();
         $data->title=$request->title;
         $data->sub_title = $request->sub_title; 
-        $image=$request->image->getClientOriginalName();
-        $request->image->move(public_path('image'), $image);
+        if($request->hasFile('image'))
+        {
+          $filename = $request->image; 
+          $newName = time() . '-' . $filename->getClientOriginalExtension(); 
+          $image_resize = Image::make($filename->getRealPath());
+          $image_resize->resize(  1200, 1200, 
+          function($constraint){
+            $constraint->aspectRatio(); 
+            $constraint->upsize();
+          });
+          $image_resize->save(public_path('images/' .$newName));
+          $data->image = $newName;
+        } 
         $data->save(); 
 
         return redirect ('/banner');
@@ -87,8 +99,19 @@ class BannerController extends Controller
         $data=new Banner();
         $data->title=$request->title;
         $data->sub_title = $request->sub_title; 
-        $image=$request->image->getClientOriginalName();
-        $request->image->move(public_path('images'), $image);
+        if($request->hasFile('image'))
+        {
+          $filename = $request->image; 
+          $newName = time() . '-'. $filename->getClientOriginalExtension(); 
+          $image_resize = Image::make($filename->getRealPath());
+          $image_resize->resize(  1200, 1200, 
+          function($constraint){
+            $constraint->aspectRatio(); 
+            $constraint->upsize();
+          });
+          $image_resize->save(public_path('images/' .$newName));
+          $data->image = $newName;
+        } 
         $data->save(); 
         return redirect ('/banner');
     }
@@ -101,7 +124,8 @@ class BannerController extends Controller
      */
     public function destroy($banner)
     {
+       $banner= Banner::find($banner);
        $banner-> delete(); 
-       return redirect('/admin');
+       return redirect()->back()->with('messages', 'Banner Removed Sucessfully');
     }
 }

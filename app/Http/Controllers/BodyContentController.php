@@ -126,7 +126,7 @@ class BodyContentController extends Controller
      */
     public function destroy($contentbody)
     {
-       $banner-> delete(); 
+       $contentbody-> delete(); 
        return redirect('/Content');
     }
 }

@@ -25,7 +25,12 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css')}}">
-</head>
+
+    <!-- Datatable CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+ 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -177,7 +182,7 @@
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Hotel Fulbari Walling</span>
+      <span class="brand-text font-weight-light">Fulbari Walling</span>
     </a>
 
     <!-- Sidebar -->
@@ -241,12 +246,25 @@
             <a href="/Gallery" class="nav-link">
             <i class="fa fa-flag nav-icon"></i>
               <p>
-               Create Banner 
+               Image Gallery 
                <?php
                use App\models\Gallery;
                $data=Gallery::count(); 
                ?>
                 <span class="badge badge-info right">{{$data}}</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/Comment" class="nav-link">
+            <i class="fa fa-flag nav-icon"></i>
+              <p>
+               Customer Reviews
+               <?php
+               use App\models\Comment;
+               $comment=Comment::count(); 
+               ?>
+                <span class="badge badge-info right">{{$comment}}</span>
               </p>
             </a>
           </li>
@@ -340,5 +358,22 @@
 <script src="{{ asset ('dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset ('dist/js/pages/dashboard.js') }}"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+ <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+ <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+ <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+ <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+<script>
+   $(document).ready(function() {
+    $("#datatable").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    } );
+ </script>
 </body>
 </html>

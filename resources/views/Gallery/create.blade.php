@@ -4,7 +4,7 @@
 <section class="content">
       <div class="container-fluid">
   <div class="inertform py-5">
-  <form method="POST" class="border p-4" action="/galleries" enctype='multipart/form-data'>
+  <form method="POST" class="border p-4" action="/Gallery" enctype='multipart/form-data'>
     <h1>Insert Form</h1>
     <hr/>
 @csrf 
@@ -16,19 +16,18 @@
   <span style="color:red">{{$message.'*'}}</span>
   @enderror
   </div>
-  <div class="col-md-6 mb-3">
- 
-<div class="col-md-6 mb-3">
-<label for="exampleFormControlInput1" class="form-label">Description</label>
-  <textarea class="form-control" placeholder="Leave a Description here" id="floatingTextarea" name="description"></textarea>
-  @error('description')
-  <span style="color:red">{{$message.'*'}}</span>
-  @enderror
-</div>
-<div class="col-md-6 mb-3">
+  <div class="col-md-6 mb-1">
 <label for="exampleFormControlInput1" class="form-label">Image</label>
   <input type="file" class="form-control" name="image" id="exampleFormControlInput1">
   @error('image')
+  <span style="color:red">{{$message.'*'}}</span>
+  @enderror
+</div>
+ 
+<div class="col-md-12 mb-3">
+<label for="exampleFormControlInput1" class="form-label">Description</label>
+  <textarea class="form-control" placeholder="Leave a Description here" id="floatingTextarea" name="description"></textarea>
+  @error('description')
   <span style="color:red">{{$message.'*'}}</span>
   @enderror
 </div>

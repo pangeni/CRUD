@@ -9,13 +9,15 @@
     </div>
 
     <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped" id="datatable">
   <thead>
     <tr>
       <th scope="col">id</th>
       <th scope="col">title</th>
-      <th scope="col">content</th>
+      <th scope="col">Slug</th>
       <th scope="col">meta Title </th>
+      <th scope="col">Meta Description </th>
+      <th scope="col">Content </th>
       <th scope="col">image</th>
       <th scope="col">action</th>
     </tr>
@@ -25,8 +27,10 @@
     <tr>
       <th scope="row"> {{ $post->id }}</th>
       <td> {{ $post->title }}</td>
-      <td> {{ $post->content }}</td>
+      <td> {{ $post->slug }}</td>
       <td> {{ $post->meta_title }}</td>
+      <td> {{ $post->meta_description }}</td>
+      <td> {{ $post->content }}</td>
       <td>
       @if($post->image==null)
       <p>Image not uplaoded</p>
