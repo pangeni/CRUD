@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Banner;
 use Illuminate\Http\Request;
 
 class bannerAPI extends Controller
@@ -33,7 +33,6 @@ class bannerAPI extends Controller
         $request->validate([
             'title' => 'required | string | max:254 | unique:posts', 
             'sub_title' => 'string',
-            'image'=>'required|mimes:jpeg,jpg,png,gif',
         ]);
 
         $data=new Banner();
@@ -54,7 +53,7 @@ class bannerAPI extends Controller
         } 
         $data->save(); 
 
-        return response ($banner, 200);
+        return response ($data, 200);
     }
 
     /**
@@ -91,7 +90,6 @@ class bannerAPI extends Controller
         $request->validate([
             'title' => 'required | string | max:254 | unique:posts', 
             'sub_title'=>'string', 
-            'image'=>'mimes:jpeg,jpg,png,gif|max:2400',
             
         ]);
 
@@ -112,7 +110,7 @@ class bannerAPI extends Controller
           $banner->image = $newName;
         } 
         $banner->save(); 
-        return redirect ('/banner');
+        return response ($banner, 200);
     }
 
     /**
@@ -121,10 +119,13 @@ class bannerAPI extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($banner)
+    public function destroy($id)
     {
-       $banner= Banner::find($banner);
-       $banner-> delete(); 
-       return redirect()->back()->with('messages', 'Banner Removed Sucessfully');
+       return Banner::destroy($id);
+    }
+
+    public function search($title)
+    {
+        return Banner::where('title', 'like', '%'. $title. '%')->get();
     }
 }
