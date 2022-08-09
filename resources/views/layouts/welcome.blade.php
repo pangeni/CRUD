@@ -272,12 +272,25 @@
             <a href="/Member" class="nav-link">
             <i class="fa fa-flag nav-icon"></i>
               <p>
-               Customer Reviews
+               Team Member
                <?php
                use App\models\Member;
                $member=Member::count(); 
                ?>
                 <span class="badge badge-info right">{{$member}}</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/Member" class="nav-link">
+            <i class="fa fa-flag nav-icon"></i>
+              <p>
+               Company Services
+               <?php
+               use App\models\Services;
+               $service=Services::count(); 
+               ?>
+                <span class="badge badge-info right">{{$service}}</span>
               </p>
             </a>
           </li>
