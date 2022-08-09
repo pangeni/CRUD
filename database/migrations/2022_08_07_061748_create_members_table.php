@@ -15,11 +15,18 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->string('images');
+            $table->string('title');
+            $table->string('position');
             $table->string('name');
-            $table->string('position'); 
-            $table->string('email'); 
-            $table->string('number');
+            $table->string('address')->nullable();
+            $table->string('email');
+            $table->string('status');
+            $table->string('image')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('slug');
             $table->timestamps();
         });
     }

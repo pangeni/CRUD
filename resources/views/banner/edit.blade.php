@@ -4,7 +4,7 @@
 <section class="content">
       <div class="container-fluid">
   <div class="inertform py-5">
-  <form method="POST" class="border p-4" action="/banner/{{$post->id}}" enctype='multipart/form-data'>
+  <form method="POST" class="border p-4" action="/banner/{{ $banner->id }}" enctype='multipart/form-data'>
     <h1>Edit Data</h1>
     <hr/>
 @csrf 

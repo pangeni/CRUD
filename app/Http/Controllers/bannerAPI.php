@@ -1,17 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Banner;
-use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 
-class BannerController extends Controller
+use Illuminate\Http\Request;
+
+class bannerAPI extends Controller
 {
     public function index()
     {
         $banner = Banner::all(); 
 
-        return view('banner.index', ['banners' => $banner]);
+        return response($banner, 200);
     }
     /**
      * Show the form for creating a new resource.
@@ -20,7 +19,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('banner.create');
+        // return response('banner.create');
     }
 
     /**
@@ -55,7 +54,7 @@ class BannerController extends Controller
         } 
         $data->save(); 
 
-        return redirect ('/banner');
+        return response ($banner, 200);
     }
 
     /**

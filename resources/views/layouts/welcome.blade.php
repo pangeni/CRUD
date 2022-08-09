@@ -269,6 +269,19 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="/Member" class="nav-link">
+            <i class="fa fa-flag nav-icon"></i>
+              <p>
+               Customer Reviews
+               <?php
+               use App\models\Member;
+               $member=Member::count(); 
+               ?>
+                <span class="badge badge-info right">{{$member}}</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <form action="{{route('logout')}}" method="post" class="nav-link">
              @csrf
              <i class="fa fa-arrow-right nav-icon mt-2"></i>

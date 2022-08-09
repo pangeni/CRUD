@@ -5,6 +5,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BodyContentController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,7 +54,13 @@ Route::get('/Gallery/{gallery}', [GalleryController::class, 'destroy']);
 Route::get('/Comment', [CommentController::class, 'index'])->name('comment.index'); 
 Route::get('/Comment/create', [CommentController::class, 'create']); 
 Route::post('/Comment', [CommentController::class, 'store']);
-Route::post('/Comment/{comment}/edit', [CommentController::class, 'edit']);
+Route::get('/Comment/{comment}/edit', [CommentController::class, 'edit']);
 Route::post('/Comment/{comment}', [CommentController::class, 'update']);
 Route::get('/Comment/{comment}', [CommentController::class, 'destroy']);
 
+Route::get('/Member', [MemberController::class, 'index'])->name('member.index'); 
+Route::get('/member/create', [MemberController::class, 'create']); 
+Route::post('/member', [MemberController::class, 'store'])->name('Member.index');
+Route::get('/member/{id}/edit', [MemberController::class, 'edit']);
+Route::post('/member/{id}', [MemberController::class, 'update']);
+Route::delete('/member/{id}', [MemberController::class, 'destroy']);
