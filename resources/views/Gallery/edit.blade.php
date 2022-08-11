@@ -4,7 +4,7 @@
 <section class="content">
       <div class="container-fluid">
   <div class="inertform py-5">
-  <form method="POST" class="border p-4" action="/gallery/{{$gallery->id}}" enctype='multipart/form-data'>
+  <form method="POST" class="border p-4" action="/Gallery/{{$gallery->slug}}"  enctype='multipart/form-data'>
     <h1>Edit Data</h1>
     <hr/>
 @csrf 
@@ -19,9 +19,9 @@
   </div>
  
 <div class="col-md-6 mb-3">
-<label for="exampleFormControlInput1" class="form-label">sub_title</label>
-  <textarea class="form-control" placeholder="Leave a contect here" id="floatingTextarea" name="Sub_title">{{$gallery->description}}</textarea>
-  @error('Sub_title')
+<label for="exampleFormControlInput1" class="form-label">description</label>
+  <textarea class="form-control" placeholder="Leave a desc here" id="floatingTextarea" name="description">{{$gallery->description}}</textarea>
+  @error('description')
   <span style="color:red">{{$message.'*'}}</span>
   @enderror
 </div>

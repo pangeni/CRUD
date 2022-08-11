@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('body_contents', function (Blueprint $table) {
+        Schema::create('customer_details', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('sub_title');
-            $table->string('slug');
-            $table->string('page');
-            $table->string('content'); 
-            $table->string('image'); 
+            $table->string('title'); 
+            $table->string('name'); 
+            $table->string('address');
+            $table->integer('number')->nullable(); 
+            $table->string('email')->nullable(); 
+            $table->string('identity')->nullable(); 
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('body_contents');
+        Schema::dropIfExists('customer_details');
     }
 };

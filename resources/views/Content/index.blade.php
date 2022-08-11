@@ -5,7 +5,7 @@
       <div class="container-fluid">
     <div class="d-flex justify-content-between border p-3" >
         <h2>All Blogs</h2>
-    <a href="/posts/create" class="btn btn-secondary" type="button"> Add Post </a> 
+    <a href="/content/create" class="btn btn-secondary" type="button"> Add Post </a> 
     </div>
 
     <div class="table-responsive">
@@ -13,6 +13,7 @@
   <thead>
     <tr>
       <th scope="col">id</th>
+      <th scope="col">Page</th>
       <th scope="col">title</th>
       <th scope="col">content</th>
       <th scope="col">Sub Title</th>
@@ -24,9 +25,10 @@
   @foreach ($body_contents as $bodycontent) 
     <tr>
       <th scope="row"> {{ $bodycontent->id }}</th>
+      <td> {{ $bodycontent->page }}</td>
       <td> {{ $bodycontent->title }}</td>
       <td> {{ $bodycontent->content }}</td>
-      <td> {{ $bodycontent->Sub_title }}</td>
+      <td> {{ $bodycontent->sub_title }}</td>
       <td>
       @if($bodycontent->image==null)
       <p>Image not uplaoded</p>
@@ -36,9 +38,9 @@
       </td>
       <td>
         <div class="d-flex">
-        <a class="btn btn-secondary me-3" type="submit" href="/body_contents/{{ $bodycontent->slug }}/edit" style="margin-right:10px;" >
+        <a class="btn btn-secondary me-3" type="submit" href="/content/{{ $bodycontent->slug }}/edit" style="margin-right:10px;" >
             Edit </a>
-            <form action="/body_contents/{{$bodycontent->slug}}" method="bodycontent">
+            <form action="/content/{{$bodycontent->slug}}" method="bodycontent">
                 @csrf 
                 @method('DELETE')
              <button class="btn btn-warning" type="submit">Delete</button>

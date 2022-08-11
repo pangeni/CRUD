@@ -7,6 +7,8 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\CustomerDetailsController;
+use App\Http\Controllers\RoomDetailsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,7 +51,7 @@ Route::get('/Gallery', [GalleryController::class, 'index'])->name('gallery.index
 Route::get('/Gallery/create', [GalleryController::class, 'create']); 
 Route::post('/Gallery', [GalleryController::class, 'store']);
 Route::get('/Gallery/{gallery}/edit', [GalleryController::class, 'edit']);
-Route::get('/Gallery/{gallery}', [GalleryController::class, 'update'])->name('gallery.index');
+Route::put('/Gallery/{gallery}', [GalleryController::class, 'update'])->name('gallery.index');
 Route::get('/Gallery/{gallery}', [GalleryController::class, 'destroy']);
 
 Route::get('/Comment', [CommentController::class, 'index'])->name('comment.index'); 
@@ -70,5 +72,27 @@ Route::get('/service', [servicesController::class, 'index'])->name('service.inde
 Route::get('/service/create', [servicesController::class, 'create']); 
 Route::post('/service', [servicesController::class, 'store']);
 Route::get('/service/{service}/edit', [servicesController::class, 'edit']);
-Route::put('/service/{service}', [servicesController::class, 'update'])->name('service.index');
+Route::put('/service/{service}', [servicesController::class, 'update']);
 Route::get('/service/{service}', [servicesController::class, 'destroy']);
+
+Route::get('/content', [BodyContentController::class, 'index'])->name('content.index'); 
+Route::get('/content/create', [BodyContentController::class, 'create']); 
+Route::post('/content', [BodyContentController::class, 'store']);
+Route::get('/content/{content}/edit', [BodyContentController::class, 'edit']);
+Route::put('/content/{content}', [BodyContentController::class, 'update']);
+Route::get('/content/{content}', [BodyContentController::class, 'destroy']);
+
+Route::get('/Customer', [CustomerDetailsController::class, 'index'])->name('Customer.index'); 
+Route::get('/Customer/create', [CustomerDetailsController::class, 'create']); 
+Route::post('/Customer', [CustomerDetailsController::class, 'store']);
+Route::get('/Customer/{id}/edit', [CustomerDetailsController::class, 'edit']);
+Route::put('/Customer/{id}', [CustomerDetailsController::class, 'update'])->name('Customer.index');
+Route::get('/Customer/{id}', [CustomerDetailsController::class, 'destroy']);
+
+
+Route::get('/Booking', [RoomDetailsController::class, 'index']); 
+Route::get('/Booking/create', [RoomDetailsController::class, 'create']); 
+Route::post('/Booking', [RoomDetailsController::class, 'store']);
+// Route::get('/Booking/{id}/edit', [RoomDetailsController::class, 'edit']);
+// Route::put('/Booking/{id}', [RoomDetailsController::class, 'update']);
+// Route::get('/Booking/{id}', [RoomDetailsController::class, 'destroy']);

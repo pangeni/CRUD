@@ -82,60 +82,21 @@
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
+          <i class="far fa-user"></i>
+          {{ auth()->user()->name}}
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
+        <form action="{{route('logout')}}" method="post" class="mx-auto d-flex" >
+             @csrf
+             <div>
+              <button type="submit" class="btn d-flex">  
+                <h3> LOGOUT </h3>
+                <i class="fa fa-2x fa-arrow-right text-danger"></i>
+            </button>
+            
+</div>
+           </form>
+</div>
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
@@ -243,8 +204,21 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="/content" class="nav-link">
+            <i class="fa fa-file nav-icon"></i>
+              <p>
+               Create Body Content 
+               <?php
+               use App\models\BodyContent;
+               $data=BodyContent::count(); 
+               ?>
+                <span class="badge badge-info right">{{$data}}</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="/Gallery" class="nav-link">
-            <i class="fa fa-flag nav-icon"></i>
+            <i class="fa fa-image nav-icon" aria-hidden="true"></i>
               <p>
                Image Gallery 
                <?php
@@ -257,7 +231,7 @@
           </li>
           <li class="nav-item">
             <a href="/Comment" class="nav-link">
-            <i class="fa fa-flag nav-icon"></i>
+            <i class="fa fa-star nav-icon"></i>
               <p>
                Customer Reviews
                <?php
@@ -270,7 +244,7 @@
           </li>
           <li class="nav-item">
             <a href="/Member" class="nav-link">
-            <i class="fa fa-flag nav-icon"></i>
+            <i class="fa fa-user nav-icon"></i>
               <p>
                Team Member
                <?php
@@ -282,8 +256,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/Member" class="nav-link">
-            <i class="fa fa-flag nav-icon"></i>
+            <a href="/service" class="nav-link">
+            <i class="fa fa-wrench nav-icon"></i>
               <p>
                Company Services
                <?php
@@ -295,13 +269,30 @@
             </a>
           </li>
           <li class="nav-item">
-            <form action="{{route('logout')}}" method="post" class="nav-link">
-             @csrf
-             <i class="fa fa-arrow-right nav-icon mt-2"></i>
-              <button type="submit" class="btn text-white">
-                Logout
-            </button>
-           </form>
+            <a href="/Customer" class="nav-link">
+            <i class="fa fa-wrench nav-icon"></i>
+              <p>
+               Customer Details
+               <?php
+               use App\models\CustomerDetails;
+               $customer=CustomerDetails::count(); 
+               ?>
+                <span class="badge badge-info right">{{$customer}}</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/Booking" class="nav-link">
+            <i class="fa fa-wrench nav-icon"></i>
+              <p>
+              Booking details
+               <?php
+               use App\models\Room_details;
+               $data=Room_details::count(); 
+               ?>
+                <span class="badge badge-info right">{{$data}}</span>
+              </p>
+            </a>
           </li>
         </ul>
       </nav>

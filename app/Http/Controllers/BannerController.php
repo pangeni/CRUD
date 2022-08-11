@@ -112,8 +112,8 @@ class BannerController extends Controller
           $image_resize->save(public_path('images/' .$newName));
           $banner->image = $newName;
         } 
-        $banner->save(); 
-        return redirect ('/banner');
+        $banner->update(); 
+        return redirect(route('banner.index'))->with('message', 'Banner edited sucessfully');
     }
 
     /**

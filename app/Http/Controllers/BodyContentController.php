@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Model\BodyContent;
+use App\Models\BodyContent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class BodyContentController extends Controller
 {
@@ -10,7 +12,7 @@ class BodyContentController extends Controller
     {
         $bodycontent = BodyContent::all(); 
 
-        return view('Content.index', ['body_contents' => $bodycontent]);
+        return view('content.index', ['body_contents' => $bodycontent]);
     }
     /**
      * Show the form for creating a new resource.
@@ -44,19 +46,26 @@ class BodyContentController extends Controller
         $data=new BodyContent();
         $data->title=$request->title;
         $data->content = $request->content; 
-        if(isset($request->image)){
-            $filename = $request->image; 
-            $image = time().'_' . $random . '.' . $filename->extension(); 
-            $filename->move(public_path('images'), $image); 
-            $data->image = $image; 
-
-        }
-        $data->slug = $random; 
-        $data->sub_title = $request->subtitle; 
+        $data->sub_title = $request->sub_title; 
         $data->page = $request->page; 
+        $data->slug = Str::slug($request->title, '-'); 
+        $slug = $data->slug; 
+        if($request->hasFile('image'))
+        {
+          $filename = $request->image; 
+          $newName = time() . '-'. $slug . '.' .  $filename->getClientOriginalExtension(); 
+          $image_resize = Image::make($filename->getRealPath());
+          $image_resize->resize(  1200, 1200, 
+          function($constraint){
+            $constraint->aspectRatio(); 
+            $constraint->upsize();
+          });
+          $image_resize->save(public_path('images/' .$newName));
+          $data->image = $newName;
+        } 
         $data->save(); 
 
-        return redirect ('/Content');
+        return redirect(route('content.index'))->with('message', 'Body Content added sucessfully');
     }
 
     /**
@@ -98,24 +107,28 @@ class BodyContentController extends Controller
             'image'=>'required|mimes:jpeg,jpg,png,gif',
         ]);
 
-        $random = Str::slug($request->title, '-');
-
         $data=new BodyContent();
         $data->title=$request->title;
         $data->content = $request->content; 
-        if(isset($request->image)){
-            $filename = $request->image; 
-            $image = time().'_' . $random . '.' . $filename->extension(); 
-            $filename->move(public_path('images'), $image); 
-            $data->image = $image; 
-
+        $data->slug = Str::slug($request->title, '-'); 
+        $data = $request->slug; 
+        if($request->hasFile('image'))
+        {
+          $filename = $request->image; 
+          $newName = time() . '-'. $slug . '.' .  $filename->getClientOriginalExtension(); 
+          $image_resize = Image::make($filename->getRealPath());
+          $image_resize->resize(  1200, 1200, 
+          function($constraint){
+            $constraint->aspectRatio(); 
+            $constraint->upsize();
+          });
         }
-        $data->slug = $random; 
         $data->sub_title = $request->subtitle; 
         $data->page = $request->page; 
-        $data->save(); 
+        
+        $data->update(); 
 
-        return redirect ('/Content');
+        return redirect(route('content.index'))->with('message', 'Content edited sucessfully');
     }
 
     /**
@@ -124,9 +137,10 @@ class BodyContentController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($contentbody)
+    public function destroy ($bodycontent)
     {
-       $contentbody-> delete(); 
-       return redirect('/Content');
+        $bodycontent= BodyContent::where('slug',$bodycontent)->first();
+        $bodycontent->delete(); 
+        return redirect()->back()->with('message', 'Content Removed');  
     }
 }

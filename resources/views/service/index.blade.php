@@ -14,6 +14,7 @@
       <th>title</th>
       <th>Slug</th>
       <th>Description</th>
+      <th>Status</th>
       <th>image</th>
       <th>action</th>
     </tr>
@@ -25,6 +26,12 @@
       <td> {{ $services->title }}</td>
       <td> {{ $services->slug }}</td>
       <td> {{ $services->description }}</td>
+      <td> @if($services->status == 1) 
+      <span style="background:green; color:white; padding:10px; boarder:none; border-radius:10px;">Active</span>
+           @else 
+           <span style="background:red; color:white; padding:10px; boarder:none; border-radius:10px;">De-active</span>
+           @endif
+      </td>
       <td>
       @if($services->image==null)
       <p>Image not uplaoded</p>

@@ -31,13 +31,12 @@
   <span style="color:red">{{$message.'*'}}</span>
   @enderror
 </div>
-<div class="col-md-12 mb-3">
-<label for="exampleFormControlInput1" class="form-label">status</label>
-  <textarea class="form-control" placeholder="Leave a status here" id="floatingTextarea" name="status"></textarea>
-  @error('status')
-  <span style="color:red">{{$message.'*'}}</span>
-  @enderror
-</div>
+<select class="form-select" name="status" aria-label="Default select example">
+  <option selected disable>Open this select menu</option>
+  <option value="0">Disable</option>
+  <option value="1">Enable</option>
+</select>
+
 </div>
   <button type="submit" class="btn btn-secondary w-100">Create</button>
 </form>

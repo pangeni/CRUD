@@ -7,6 +7,12 @@
         <h2>Gallery Images</h2>
     <a href="/Gallery/create" class="btn btn-secondary" type="button"> Add Post </a> 
     </div>
+    @if (Session::has('a'))
+                        <div class="alert alert-success" role="alert">
+                            {{ Session::get('a') }}
+                        </div>
+
+                     @endif   
     <table class="table" id="datatable">
   <thead>
     <tr>
@@ -38,7 +44,7 @@
       </td>
       <td>
         <div class="d-flex">
-        <a class="btn btn-secondary me-3" type="submit" href="/Gallery/{{ $gallery->id }}/edit" style="margin-right:10px;" >
+        <a class="btn btn-secondary me-3" type="submit" href="/Gallery/{{ $gallery->slug }}/edit" style="margin-right:10px;" >
             Edit </a>
             <form action="/Gallery/{{$gallery->slug}}" method="gallery">
                 @csrf 
@@ -51,17 +57,10 @@
     @endforeach
   </tbody>
 </table>
-</div>  
-
 </div>
 </section>
-<div class="card text-info">
-                    @if (session('message'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('message') }}
-                        </div>
-                     @endif   
-</div> 
+
+
    
   
 @endsection

@@ -50,23 +50,24 @@ class GalleryController extends Controller
       }
       $gallery->save();
 
-      return redirect(route('gallery.index'))->with('message', 'Images added sucessfully');
+      return redirect('/Gallery')->with('a', 'Images added sucessfully');
 
     }
-    public function edit ($id)
+    public function edit ($slug)
     {
-      $gallery = gallery::find($id);
+      $gallery = gallery::where('slug', $slug)->first();
       return view('Gallery.edit',compact('gallery'));
     }
-    public function update(request $gallery)
+    public function update(Request $request, $gallery)
     {
+       
+      // return  $request->all();
       $request->validate([
-        'title' => 'required | String | max:20',
+        'title' => 'required | String | max:254',
         'image' => 'required | mimes:jpeg,jpg,png,gif',
         'description' => 'required | String | max:254',
       ]);
-
-      $gallery = new Gallery();
+      $gallery = Gallery::where('slug', $gallery)->first();
       $gallery->title = $request->title ; 
       $gallery->description = $request->description; 
       $gallery->slug = Str::slug($request->title, '-'); 
@@ -84,9 +85,9 @@ class GalleryController extends Controller
         $image_resize->save(public_path('images/' .$newName));
         $gallery->image = $newName;
       }
-      $gallery->update();
+      $gallery->save();
 
-      return redirect(route('gallery.index'))->with('message', 'Images added sucessfully');
+      return redirect('/Gallery')->with('message', 'Images added sucessfully');
 
     }
     public function destroy ($gallery)
