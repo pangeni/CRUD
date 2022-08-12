@@ -59,13 +59,13 @@ class MemberController extends Controller
         }
         $member->save();
 
-        $request->session()->flash('message','Record was Added');
+        $request->session()->flash('message','Team Member added sucessfully');
         return redirect(route('member.index'))->with('message','Record added');
     }
     public function edit($member)
     {
-        $member=member::where('slug',$member)->first();
-        return view ('blog.edit', ['member' => $member]); 
+        $members = member::where('slug', $member)->first();
+        return view ('Member.edit', ['members' => $members]); 
     }
 
     /**
@@ -75,7 +75,7 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $member)
     {
           //Validation
           $data = $request->validate([
@@ -88,7 +88,7 @@ class MemberController extends Controller
         ]);
 
 
-        $member = member::findOrFail($id);
+        $member = member::findOrFail('slug', $member)->first();
         $member->title = $request->title;
         $member->position = $request->type;
         $member->name = $request->name;
@@ -117,6 +117,8 @@ class MemberController extends Controller
             );
             $image_resize->save(public_path('member/' .$newName));
             $member->image = 'member/' .$newName;
+
+            return 'hello';
         }
         $member->update();
        

@@ -60,6 +60,7 @@ class RoomDetailsController extends Controller
     public function edit ($id)
     {
       $customer = Room_details::has($id);
+     
       return view('Booking.edit',compact('room_details'));
     }
     public function update(Request $request, $customer)

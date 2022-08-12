@@ -54,10 +54,10 @@
                         <td>{{ $member->instagram }}</td>
                         <td>{{ $member->linkedln }}</td>
                         <td>
-                            <form action="/members/{{ $member->id }}" method="post">
+                            <form action="/member/{{ $member->slug }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <a href="/members/{{ $member->id }}/edit" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="/member/{{ $member->slug }}/edit" class="btn btn-primary btn-sm">Edit</a>
                                 <button type="submit" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>

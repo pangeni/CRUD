@@ -23,12 +23,12 @@
                    @endif
                 </div>
 
-                <form action="/member/{{ $member->id }}" method="post" enctype="multipart/form-data">
+                <form action="/Member/{{ $members->slug }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input id="title" class="form-control" type="text" name="title" value="{{ $member->title }}">
+                        <input id="title" class="form-control" type="text" name="title" value="{{ $members->title }}">
                     </div>
                     @error('title')
                     <span class="text-danger">{{ $message }}</span>
@@ -36,7 +36,7 @@
 
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input id="name" class="form-control" type="text" name="name" value="{{ $member->name }}">
+                        <input id="name" class="form-control" type="text" name="name" value="{{ $members->name }}">
                     </div>
                     @error('name')
                     <span class="text-danger">{{ $message }}</span>
@@ -58,7 +58,7 @@
 
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <input id="address" class="form-control" type="text" name="address" value="{{ $member->address }}">
+                        <input id="address" class="form-control" type="text" name="address" value="{{ $members->address }}">
                     </div>
                     @error('address')
                     <span class="text-danger">{{ $message }}</span>
@@ -66,7 +66,7 @@
 
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input id="email" class="form-control" type="text" name="email" value="{{ $member->email }}">
+                        <input id="email" class="form-control" type="text" name="email" value="{{ $members->email }}">
                     </div>
                     @error('email')
                     <span class="text-danger">{{ $message }}</span>
@@ -84,7 +84,7 @@
                     @enderror
 
                     <div>
-                        <img src="{{ asset($member->image) }}" alt="{{ $member->name }}" width="100">
+                        <img src="{{ asset($members->image) }}" alt="{{ $members->name }}" width="100">
                     </div>
 
                     <div class="form-group">
@@ -97,19 +97,19 @@
                     
                     <div class="form-group">
                         <label for="facebook">Facebook</label>
-                        <input id="facebook" class="form-control" type="text" name="facebook" value="{{ $member->facebook }}">
+                        <input id="facebook" class="form-control" type="text" name="facebook" value="{{ $members->facebook }}">
                     </div>
                     <div class="form-group">
                         <label for="twitter">Twitter</label>
-                        <input id="twitter" class="form-control" type="text" name="twitter" value="{{ $member->twitter }}">
+                        <input id="twitter" class="form-control" type="text" name="twitter" value="{{ $members->twitter }}">
                     </div>
                     <div class="form-group">
                         <label for="instagram">Instagram</label>
-                        <input id="instagram" class="form-control" type="text" name="instagram" value={{ $member->instagram }}>
+                        <input id="instagram" class="form-control" type="text" name="instagram" value="{{ $members->instagram }}">
                     </div>
                     <div class="form-group">
                         <label for="linkedln">Linkedln</label>
-                        <input id="linkedln" class="form-control" type="text" name="linkedln" value="{{ $member->linkedln }}">
+                        <input id="linkedln" class="form-control" type="text" name="linkedln" value="{{ $members->linkedln }}">
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Update member Record</button>
                 </form>

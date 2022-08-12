@@ -69,7 +69,7 @@
                     @enderror
 
                    
-                        <div class="form-group">
+                        <div>
                             <label for="status">status</label>
                            <select name="status" id="status">
                                <option value="yes">Yes</option>

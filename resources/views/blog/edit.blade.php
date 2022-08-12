@@ -19,8 +19,8 @@
   </div>
   <div class="col-md-6 mb-3">
  
-<label for="exampleFormControlInput1" class="form-label">sub-title</label>
-<textarea class="form-control" placeholder="Leave a sub-title here" id="floatingTextarea" name="sub_title">{{$post->sub_title}}</textarea>
+<label for="exampleFormControlInput1" class="form-label">Sub title</label>
+<textarea class="form-control" placeholder="Leave a sub-title content here" id="floatingTextarea" name="sub_title">{{ $post->sub_title }}</textarea>
 @error('sub_title')
   <span style="color:red">{{$message.'*'}}</span>
   @enderror

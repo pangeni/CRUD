@@ -32,7 +32,7 @@ class BannerController extends Controller
     public function store (Request $request)
     {
         $request->validate([
-            'title' => 'required | string | max:254 | unique:posts', 
+            'title' => 'required|string | max:254 | unique:posts', 
             'sub_title' => 'string',
             'image'=>'required|mimes:jpeg,jpg,png,gif',
         ]);
@@ -55,7 +55,7 @@ class BannerController extends Controller
         } 
         $data->save(); 
 
-        return redirect ('/banner');
+        return redirect ('/banner')->with('message', 'banner has been added sucessfully');
     }
 
     /**
@@ -75,9 +75,10 @@ class BannerController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Banner $id)
+    public function edit($id)
     {
-        return view('banner/edit', ['banners' => Banner::find($id)]); 
+        
+        return view('banner.edit', ['banner' => Banner::findOrFail($id)]); 
     }
 
     /**
@@ -87,18 +88,19 @@ class BannerController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$banner)
+    public function update(Request $request,$id)
     {
         $request->validate([
-            'title' => 'required | string | max:254 | unique:posts', 
+            'title' => 'required | string | max:254', 
             'sub_title'=>'string', 
             'image'=>'mimes:jpeg,jpg,png,gif|max:2400',
             
         ]);
 
-        $banner=new Banner();
-        $banner->title=$request->title;
+        $banner = banner::findOrFail($id);
+        $banner->title= $request->title;
         $banner->sub_title = $request->sub_title; 
+        //remove image for previous one 
         if($request->hasFile('image'))
         {
           $filename = $request->image; 
@@ -113,7 +115,7 @@ class BannerController extends Controller
           $banner->image = $newName;
         } 
         $banner->update(); 
-        return redirect(route('banner.index'))->with('message', 'Banner edited sucessfully');
+        return redirect('/banner')->with('message', 'Banner edited sucessfully');
     }
 
     /**
@@ -125,6 +127,7 @@ class BannerController extends Controller
     public function destroy($banner)
     {
        $banner= Banner::find($banner);
+       //remove image from file location
        $banner-> delete(); 
        return redirect()->back()->with('messages', 'Banner Removed Sucessfully');
     }

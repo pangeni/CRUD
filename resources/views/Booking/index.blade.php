@@ -40,11 +40,11 @@
         <div class="d-flex">
         <a class="btn btn-secondary me-3" type="submit" href="/Booking/{{ $room_details->id }}/edit" style="margin-right:10px;" >
             Edit </a>
-            <!-- <form action="/Booking/{{$room_details->id}}" method="post">
+            <form action="/Booking/{{$room_details->id}}" method="post">
                 @csrf 
                 @method('DELETE')
              <button class="btn btn-warning" type="submit">Delete</button>
-       </form> -->
+       </form>
         </div>
        </td>
     </tr>

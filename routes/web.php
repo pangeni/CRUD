@@ -33,6 +33,7 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy']);
 });
 Auth::routes();
 
+
 Route::get('/banner', [BannerController::class, 'index']); 
 Route::get('/banner/create', [BannerController::class, 'create']); 
 Route::post('/banner', [BannerController::class, 'store']); 
@@ -43,8 +44,8 @@ Route::get('/banner/{banner}', [BannerController::class, 'destroy']);
 Route::get('/bodycontent', [bodycontentController::class, 'index']); 
 Route::get('/bodycontent/create', [bodycontentController::class, 'create']); 
 Route::post('/bodycontent', [bodycontentController::class, 'store']); 
-Route::get('/bodycontent/{id}/edit', [bodycontentController::class, 'edit']); 
-Route::put('/bodycontent/{id}', [bodycontentController::class, 'update']); 
+Route::get('/bodycontent/{bodycontent}/edit', [bodycontentController::class, 'edit']); 
+Route::put('/bodycontent/{bodycontent}', [bodycontentController::class, 'update']); 
 Route::delete('/bodycontent/{id}', [bodycontentController::class, 'destroy']);
 
 Route::get('/Gallery', [GalleryController::class, 'index'])->name('gallery.index'); 
@@ -57,16 +58,16 @@ Route::get('/Gallery/{gallery}', [GalleryController::class, 'destroy']);
 Route::get('/Comment', [CommentController::class, 'index'])->name('comment.index'); 
 Route::get('/Comment/create', [CommentController::class, 'create']); 
 Route::post('/Comment', [CommentController::class, 'store']);
-Route::get('/Comment/{comment}/edit', [CommentController::class, 'edit']);
-Route::post('/Comment/{comment}', [CommentController::class, 'update']);
-Route::get('/Comment/{comment}', [CommentController::class, 'destroy']);
+Route::get('/Comment/{id}/edit', [CommentController::class, 'edit']);
+Route::post('/Comment/{id}', [CommentController::class, 'update']);
+Route::get('/Comment/{id}', [CommentController::class, 'destroy']);
 
 Route::get('/Member', [MemberController::class, 'index'])->name('member.index'); 
 Route::get('/member/create', [MemberController::class, 'create']); 
-Route::post('/member', [MemberController::class, 'store'])->name('Member.index');
-Route::get('/member/{id}/edit', [MemberController::class, 'edit']);
-Route::post('/member/{id}', [MemberController::class, 'update']);
-Route::delete('/member/{id}', [MemberController::class, 'destroy']);
+Route::post('/member', [MemberController::class, 'store']);
+Route::get('/member/{member}/edit', [MemberController::class, 'edit']);
+Route::put('/Member/{member}', [MemberController::class, 'update']);
+Route::delete('/member/{member}', [MemberController::class, 'destroy']);
 
 Route::get('/service', [servicesController::class, 'index'])->name('service.index'); 
 Route::get('/service/create', [servicesController::class, 'create']); 
@@ -93,6 +94,6 @@ Route::get('/Customer/{id}', [CustomerDetailsController::class, 'destroy']);
 Route::get('/Booking', [RoomDetailsController::class, 'index']); 
 Route::get('/Booking/create', [RoomDetailsController::class, 'create']); 
 Route::post('/Booking', [RoomDetailsController::class, 'store']);
-// Route::get('/Booking/{id}/edit', [RoomDetailsController::class, 'edit']);
-// Route::put('/Booking/{id}', [RoomDetailsController::class, 'update']);
-// Route::get('/Booking/{id}', [RoomDetailsController::class, 'destroy']);
+Route::get('/Booking/{id}/edit', [RoomDetailsController::class, 'edit']);
+Route::put('/Booking/{id}', [RoomDetailsController::class, 'update']);
+Route::get('/Booking/{id}', [RoomDetailsController::class, 'destroy']);

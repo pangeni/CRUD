@@ -85,9 +85,10 @@ class BodyContentController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($contentbody)
+    public function edit($bodycontent)
     {
-        return view ('Content.edit', ['banners' => $contentbody]); 
+        $contentbody = BodyContent::where('slug', $bodycontent)->first();
+        return view ('Content.edit', ['bodycontent' => $contentbody]); 
     }
 
     /**
@@ -107,11 +108,11 @@ class BodyContentController extends Controller
             'image'=>'required|mimes:jpeg,jpg,png,gif',
         ]);
 
-        $data=new BodyContent();
+        $data = BodyContent::where('slug', $contentbody)->first();
         $data->title=$request->title;
         $data->content = $request->content; 
         $data->slug = Str::slug($request->title, '-'); 
-        $data = $request->slug; 
+        $slug = $request->slug; 
         if($request->hasFile('image'))
         {
           $filename = $request->image; 
@@ -123,7 +124,7 @@ class BodyContentController extends Controller
             $constraint->upsize();
           });
         }
-        $data->sub_title = $request->subtitle; 
+        $data->sub_title = $request->sub_title; 
         $data->page = $request->page; 
         
         $data->update(); 

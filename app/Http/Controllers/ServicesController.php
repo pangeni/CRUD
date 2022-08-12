@@ -67,12 +67,12 @@ class ServicesController extends Controller
         'description' => 'required | String | max:254',
       ]);
 
-      $service = new services();
-      $service->title = $request->title ; 
-      $service->description = $request->description; 
-      $service->slug = Str::slug($request->title, '-'); 
-      $slug = $service->slug; 
-      $service->status = $request->status; 
+      $data = services::where('slug',$service)->first();
+      $data->title = $request->title ; 
+      $data->description = $request->description; 
+      $data->slug = Str::slug($request->title, '-'); 
+      $slug = $data->slug; 
+      $data->status = $request->status; 
       if($request->hasFile('image'))
       {
         $filename = $request->image; 
@@ -84,9 +84,9 @@ class ServicesController extends Controller
           $constraint->upsize();
         });
         $image_resize->save(public_path('images/' .$newName));
-        $service->image = $newName;
+        $data->image = $newName;
       }
-      $service->update();
+      $data->update();
 
       return redirect(route('service.index'))->with('message', 'Images added sucessfully');
 
